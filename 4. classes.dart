@@ -114,6 +114,27 @@ class CNPlayer {
   }
 }
 
+// 6. Enums
+enum Team { red, blue }
+
+enum XPLevel { beginner, medium, pro }
+
+class enumPlayer {
+  String name;
+  XPLevel xp;
+  Team team;
+
+  enumPlayer({
+    required this.name,
+    required this.xp,
+    required this.team,
+  });
+
+  void sayHello() {
+    print("Hi my name is ${name}! Here is in CNPlayer");
+  }
+}
+
 void main() {
   // 0. Your First Dart Class
   var player = Player();
@@ -180,4 +201,11 @@ void main() {
     ..team = 'red'
     ..sayHello();
   print(faker.name);
+
+  // 6. Enums --> 자주 쓰게 될 것 (개발자들이 실수하지 않게끔 도와줌)
+  var dalkong = enumPlayer(name: 'nico', xp: XPLevel.medium, team: Team.red)
+    ..name = 'las'
+    ..xp = XPLevel.pro
+    ..team = Team.blue;
+  print(dalkong.team);
 }
