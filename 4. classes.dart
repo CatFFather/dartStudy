@@ -1,5 +1,7 @@
 // 0. Your First Dart Class
 // Class를 생성할 때는 타입을 꼭 명시해줘야함.
+import 'dart:ffi';
+
 class Player {
   final String name = 'Jayend';
   int xp = 1500;
@@ -135,6 +137,92 @@ class enumPlayer {
   }
 }
 
+// 7. Abstract Classes (flutter를 사용할 때 많이 사용 안함) 추상화 클래스는 특정 메소드를 구현하도록 강제
+// 추상화 클래스는 이를 상속받는 모든 클래스가 가지고있어야 하는 공통된 속성, 메소드를 정의
+abstract class Human {
+  void walk();
+}
+
+class ACPlayer extends Human {
+  String name;
+  XPLevel xp;
+  Team team;
+  ACPlayer({
+    required this.name,
+    required this.xp,
+    required this.team,
+  });
+
+  void walk() {
+    print('im wlaking');
+  }
+
+  void sayHello() {
+    print("Hi my name is ${name}! Here is in ACPlayer");
+  }
+}
+
+class Coach extends Human {
+  late String name;
+  void walk() {
+    print('the coach is wlaking');
+  }
+}
+
+// 8. Inheritance
+class Human8 {
+  final String name;
+  Human8({required this.name});
+  void sayHello() {
+    print("Hi my name is $name");
+  }
+}
+
+enum Team8 { blue, red }
+
+class Player8 extends Human8 {
+  final Team team;
+  Player8({
+    required this.team,
+    required String name,
+  }) : super(name: name); // super를 이용하여 확장을 한 부모 클래스와 상호작용할 수 있게 해줌
+
+  @override
+  void sayHello() {
+    super.sayHello(); // super를 이용하여 부모 클레스 메소드 호출
+    print('and I play for ${team}');
+  }
+}
+
+// 9. Mixins --> 생성자가 없는 클래스, 여러 클래스에 재사용이 가능한 장점이 있음(Flutter에서 많이 사용함)
+// Mixin의 조건은 생성자가 없는 클래스여야 함
+mixin class Strong {
+  final double strenghtLevel = 1500.99;
+}
+
+mixin class QuickRunner {
+  void runQuick() {
+    print('ruuuuuuuun!');
+  }
+}
+
+mixin Tall {
+  final double height = 1.99;
+}
+
+enum Team9 { blue, red }
+
+class Player9 with Strong, QuickRunner, Tall {
+  final Team team;
+  Player9({
+    required this.team,
+  });
+}
+
+class Horse with Strong, QuickRunner {}
+
+class Kid with QuickRunner {}
+
 void main() {
   // 0. Your First Dart Class
   var player = Player();
@@ -208,4 +296,17 @@ void main() {
     ..xp = XPLevel.pro
     ..team = Team.blue;
   print(dalkong.team);
+
+  // 7. Abstract Classes
+
+  // 8. Inheritance
+  var player8 = Player8(team: Team.red, name: 'Faker');
+  print('@@@@@@@@@@');
+  print(player8.name);
+  print(player8.team);
+  player8.sayHello();
+
+  // 9. Mixins
+  var player9 = Player9(team: Team.blue);
+  player9.runQuick();
 }
